@@ -7,4 +7,11 @@ public class Knight extends Piece{
         super("Knight",color);
     }
 
+    Knight() {
+
+    }
+
+    public void isValid(){
+
+    }
 }

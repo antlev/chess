@@ -26,5 +26,5 @@ public  abstract class Piece {
         this.color = color;
     }
 
-    public boolean abstract isValid();
+    public void abstract isValid();
 }

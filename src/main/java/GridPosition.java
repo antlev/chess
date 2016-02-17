@@ -16,6 +16,6 @@ public class GridPosition {
         Return the piece's position in grid
      */
     public boolean equals(GridPosition pos){
-        return 0 ;
+        return false ;
     }
 }
