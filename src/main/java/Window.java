@@ -1,6 +1,3 @@
-/**
- * Created by antoine on 2/15/16.
- */
 
 import javax.swing.JFrame;
 
@@ -14,7 +11,6 @@ import javax.swing.*;
 import java.awt.event.*;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
-import javax.swing.text.Position;
 import java.awt.Color;
 
 /**
@@ -131,9 +127,9 @@ public class Window extends JFrame {
         ImageIcon image;
         int lineClic;
         int columnClic;
-        Position departure, arrival;
+        GridPosition departure, arrival;
         String color = "white";
-        Position tempPos = null;
+        GridPosition tempPos = null;
 
 
         /**
@@ -212,13 +208,13 @@ public class Window extends JFrame {
                             //J'initialise la piece tampon a la piece sur laquelle on a cliqu�
                             piece = chessboard.getBox(columnClic, lineClic).getPiece();
                             image = (ImageIcon) jLabel[columnClic][lineClic].getIcon();
-                            tempPos = new Position(columnClic, lineClic);
+                            tempPos = new GridPosition(columnClic, lineClic);
                             jLabel[columnClic][lineClic].setBorder(BorderFactory.createLineBorder(new Color(255, 0, 0), 5));
                         }
 
                     } else {
                         //je cr�� un d�placement
-                        Move move = new Move(tempPos, new Position(columnClic, lineClic));
+                        Move move = new Move(tempPos, new GridPosition(columnClic, lineClic));
                         //je v�rifie si le d�placement est valide, si le chemin est possible et si il est possible, pour un pion de manger la piece
                         if ((piece.isValid(move) && chessboard.possiblePath(move)) | chessboard.canBeCaptured(move)) {
                             //je cr�� un jLabel avec l'ic�ne de la pi�ce manger
@@ -231,10 +227,10 @@ public class Window extends JFrame {
                             else
                                 blackPanel.add(eat);
 
-                        /* je v�rifie si la pi�ce manger est un roi, si oui le jeu est termin� et L'utilisateurs
+                        /* je v�rifie si la pi�ce manger est un roi, si oui le jeu est termin� et L'utilisateurs 
                         peut choisir si il veut continuer a jouer ou non*/
                             if (chessboard.getBox(columnClic, lineClic).getPiece() instanceof King) {
-                                if (JOptionPane.showConfirmDialog(null, "You win !!! Do you want to play again ?\n", JOptionPane.YES_NO_OPTION) == 0) {
+                                if (JOptionPane.showConfirmDialog(null, "You win !!! Do you want to play again ?\n") == 0) {
                                     RAZ();
                                     jLabel[tempPos.getColumn()][tempPos.getLine()].setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0), 0));
                                 } else

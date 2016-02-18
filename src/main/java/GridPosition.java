@@ -12,6 +12,23 @@ public class GridPosition {
         this.column = column ;
     }
 
+    public int getLine() {
+        return line;
+    }
+
+    public int getColumn() {
+        return column;
+    }
+
+    public void setLine(int line) {
+        this.line = line;
+    }
+
+    public void setColonne(int colonne) {
+        this.column = column;
+    }
+
+
     /**
         Return the piece's position in grid
      */

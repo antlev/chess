@@ -39,33 +39,33 @@ public class Chessboard implements ChessboardMethods{
         return chessboard[column][line];
     }
 
-    public boolean possiblePath(Move departure) {
-        Piece departure = chessboard[(int)departure.getDeparture().getColumn()][(int)departure.getDeparture().getLine()].getPiece();
+    public boolean possiblePath(Move move) {
+        Piece departure = chessboard[(int)move.getDeparture().getColumn()][(int)move.getDeparture().getLine()].getPiece();
 
 		/*deux premire condition fondamentale, que la case d'arrivŽ sois libre ou qu'elle possde une pice de couleur
 		contraire ˆ celle de la pice de dŽpart*/
-        if (!chessboard[(int)departure.getArrival().getColumn()][(int)departure.getArrival().getLine()].isOccupied(departure.getColor().equals("white") ? "white" : "black")
-                | departure.isNul()){
+        if (!chessboard[(int)move.getArrival().getColumn()][(int)move.getArrival().getLine()].pieceIsPresent(departure.getColor().equals("white") ? "white" : "black")
+                | move.isNull()){
             if (!(departure instanceof Knight)){
 
                 if(!(departure instanceof Pawn)){
                     //Je vŽrifie que le dŽplacement est supŽrieur ˆ un.
-                    if(!(Math.abs(departure.getMoveX()) - Math.abs(departure.getMoveY()) <= 1
-                            && Math.abs(departure.getMoveX()) + Math.abs(departure.getMoveY()) <= 1)){
+                    if(!(Math.abs(move.getMoveOnX()) - Math.abs(move.getMoveOnY()) <= 1
+                            && Math.abs(move.getMoveOnX()) + Math.abs(move.getMoveOnY()) <= 1)){
 
 						/*JumpX et jumpY seront sois 0,  1 ou -1, ils indiquent l'incrŽmentation que je devrai utiliser pour les valeurs X et Y pour
 						  vŽrifier toute les cases entre le dŽpart et l'arrivŽ*/
-                        int jumpX = departure.getMoveX() == 0 ? 0 : (int)(departure.getArrival().getColumn() - departure.getDeparture().getColonne())
-                                /Math.abs((int)(departure.getArrival().getColumn() - departure.getDeparture*().getColonne()));
+                        int jumpX = move.getMoveOnX() == 0 ? 0 : (int)(move.getArrival().getColumn() - move.getDeparture().getColumn())
+                                /Math.abs((int)(move.getArrival().getColumn() - move.getDeparture().getColumn()));
 
-                        int jumpY = departure.getMoveY() == 0 ? 0 : (int)(departure.getArrival().getLine() - departure.getDeparture().getLine())
-                                /Math.abs((int)(departure.getArrival().getLine() - departure.getDeparture().getLine()));
+                        int jumpY = move.getMoveOnY() == 0 ? 0 : (int)(move.getArrival().getLine() - move.getDeparture().getLine())
+                                /Math.abs((int)(move.getArrival().getLine() - move.getDeparture().getLine()));
 
                         //Je vŽrifie succcessivement toutes les cases entre l'arrivŽe et le dŽpart
-                        for (int ctrX = (int)departure.getDeparture().getColonne() + jumpX, ctrY = (int)departure.getDeparture().getLine() + jumpY;
-                             ctrX != (int)departure.getArrival().getColumn() | ctrY != (int)departure.getArrival().getLine();
+                        for (int ctrX = (int)move.getDeparture().getColumn() + jumpX, ctrY = (int)move.getDeparture().getLine() + jumpY;
+                             ctrX != (int)move.getArrival().getColumn() | ctrY != (int)move.getArrival().getLine();
                              ctrX += jumpX, ctrY += jumpY){
-                            if (chessboard[ctrX][ctrY].estOccupe()){
+                            if (chessboard[ctrX][ctrY].pieceIsPresent()){
                                 return false;
                             }
                         }
@@ -78,7 +78,7 @@ public class Chessboard implements ChessboardMethods{
                 }
                 else
                     //Si c'est un pion, je vŽrifie si la case est libre de toute pice.
-                    return !chessboard[(int)departure.getArrival().getColumn()][(int)departure.getArrival().getLine()].estOccupe();
+                    return !chessboard[(int)move.getArrival().getColumn()][(int)move.getArrival().getLine()].pieceIsPresent();
 
             }
             else
@@ -95,19 +95,19 @@ public class Chessboard implements ChessboardMethods{
 
     public boolean canBeCaptured(Move move) {
         //Je vŽrifie si la pice est un pion
-        if(location[deplacement.getDepart().getColonne()][deplacement.getDepart().getLigne()].getPiece() instanceof Pion)
+        if(chessboard[move.getDeparture().getColumn()][move.getDeparture().getLine()].getPiece() instanceof Pawn)
         {
         //initialisation des variables dont j'aurai besoin dans mes conditions, ˆ savoir la couleur de la pice de dŽpart et la case d'arrivŽ.
-        Case Arrive = location[(int)deplacement.getArrivee().getColonne()][(int)deplacement.getArrivee().getLigne()];
-        String couleurDepart = location[(int)deplacement.getDepart().getColonne()][(int)deplacement.getDepart().getLigne()].getPiece().getCouleur();
+        Box Arrival = chessboard[(int)move.getArrival().getColumn()][(int)move.getArrival().getLine()];
+        String couleurDepart = chessboard[(int)move.getDeparture().getColumn()][(int)move.getDeparture().getLine()].getPiece().getColor();
 
         //je vŽrifie d'abord si la pice d'arrivŽ existe et si elle est de la couleur contraire de celle de dŽpart.
-        if(Arrive.estOccupe(couleurDepart.equals("blanc") ? "noir" : "blanc"))
+        if(Arrival.pieceIsPresent(couleurDepart.equals("blanc") ? "noir" : "blanc"))
 				/*Je vŽrifie si le dŽplacement est valide,
 				 *Le dŽplacement est valide si le produits du dŽplacement x et y donne 1 si la couleur de dŽpart est noir
 				 *ou -1 si la pice de dŽpart est blanche.
 				 */
-        return (deplacement.getDeplacementY() * Math.abs(deplacement.getDeplacementX()) == (couleurDepart.equals("noir") ? 1 : -1));
+        return (move.getMoveOnY() * Math.abs(move.getMoveOnX()) == (couleurDepart.equals("noir") ? 1 : -1));
         }
         return false;
 

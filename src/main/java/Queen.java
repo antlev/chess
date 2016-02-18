@@ -6,4 +6,9 @@ public class Queen extends Piece {
     public Queen(String color){
         super("Queen",color);
     }
+
+    @Override
+    public boolean isValid(Move move) {
+        return false;
+    }
 }

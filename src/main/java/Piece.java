@@ -26,5 +26,5 @@ public  abstract class Piece {
         this.color = color;
     }
 
-    public void abstract isValid();
+    public abstract boolean isValid(Move move);
 }

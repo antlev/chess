@@ -6,4 +6,9 @@ public class Pawn extends Piece {
     Pawn(String couleur){
         super("Pawn",couleur);
     }
+
+    @Override
+    public boolean isValid(Move move) {
+        return false;
+    }
 }

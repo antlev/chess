@@ -7,8 +7,8 @@ public class Move {
 
     private double moveOnX ;
     private double moveOnY;
-    private Position departure ;
-    private Position arrival ;
+    private GridPosition departure ;
+    private GridPosition arrival ;
 
     public double getMoveOnX() {
         return moveOnX;
@@ -26,30 +26,32 @@ public class Move {
         this.moveOnY = moveOnY;
     }
 
-    public Position getArrival() {
+    public GridPosition getArrival() {
         return arrival;
     }
 
-    public void setArrival(Position arrival) {
+    public void setArrival(GridPosition arrival) {
         this.arrival = arrival;
     }
 
-    public Position getDeparture() {
+    public GridPosition getDeparture() {
         return departure;
     }
 
-    public void setDeparture(Position departure) {
+    public void setDeparture(GridPosition departure) {
         this.departure = departure;
     }
 
     public Move(GridPosition departure, GridPosition arrival){
         this.departure = departure ;
         this.arrival = arrival ;
+        this.moveOnX = arrival.getColumn() - departure.getColumn();
+        this.moveOnY = arrival.getLine() - departure.getLine();
     }
 
 
     public boolean isNull(){
-
+        return false;
     }
 
 }

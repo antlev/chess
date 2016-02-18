@@ -7,11 +7,12 @@ public class Knight extends Piece{
         super("Knight",color);
     }
 
-    Knight() {
-
+    @Override
+    public boolean isValid(Move move) {
+        return false;
     }
 
-    public void isValid(){
-
+    public boolean isValid(){
+        return false;
     }
 }

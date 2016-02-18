@@ -7,7 +7,9 @@ public class Bishop extends Piece {
         super("Bishop",color);
     }
 
-    Bishop() {
-
+    @Override
+    public boolean isValid(Move move) {
+        return false;
     }
+
 }
